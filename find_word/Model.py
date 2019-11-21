@@ -26,7 +26,7 @@ class UI:
         self.cur.execute(sql)
         if self.cur.fetchone():
             return False
-        # password = self.change_passwd(password)
+        password = self.change_passwd(password)
         try:
             sql = 'insert into user(name,passwd) values("%s",%s)' % (name, password)
             self.cur.execute(sql)
@@ -39,7 +39,7 @@ class UI:
             return True
 
     def login_in(self, name, password):
-        # password = self.change_passwd(password)
+        password = self.change_passwd(password)
         sql = 'select name,passwd from user where name="%s" and passwd = %s' % (name, password)
         self.cur.execute(sql)
         data = self.cur.fetchone()
@@ -72,9 +72,9 @@ class UI:
         if data:
             return data
 
-    # def change_passwd(self, passwd):
-    #     salt = '!@#$%'
-    #     new_passwd = hashlib.md5()
-    #     new_passwd = new_passwd.update((salt + passwd).encode())
-    #     passwd = new_passwd.hexdigest()
-    #     return passwd
+    def change_passwd(self, passwd):
+        salt = '!@#$%'
+        new_passwd = hashlib.md5(salt.encode())
+        new_passwd.update(passwd.encode())
+        passwd = new_passwd.hexdigest()
+        return passwd
