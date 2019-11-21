@@ -30,8 +30,8 @@ def find_word(c, name, word):
         c.send(msg.encode())
 
 
-def find_hist(c):
-    data = ui.find_hist()
+def find_hist(c,name):
+    data = ui.find_hist(name)
     for item in data:
         msg = '%s:%s:%s' % (item[0], item[1], str(item[2]))
         c.send((msg + '\n').encode())
@@ -52,7 +52,7 @@ def run(c):
         elif msg[0] == 'F':
             find_word(c, msg[1], msg[2])
         elif msg[0] == 'H':
-            find_hist(c)
+            find_hist(c, msg[1])
 
 
 def main():

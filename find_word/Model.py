@@ -65,8 +65,8 @@ class UI:
         else:
             self.__db.commit()
 
-    def find_hist(self):
-        sql = 'select name,word,curtime1 from hist order by curtime1 desc limit 10'
+    def find_hist(self, name):
+        sql = 'select name,word,curtime1 from hist where name = "%s" order by curtime1 desc limit 10' % name
         self.cur.execute(sql)
         data = self.cur.fetchall()
         if data:
